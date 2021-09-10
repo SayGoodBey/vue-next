@@ -18,12 +18,15 @@ __DEV__=false yarn dev
 
 const execa = require('execa')
 const { fuzzyMatchTarget } = require('./utils')
+//minimist轻量级的命令行参数解析引擎
 const args = require('minimist')(process.argv.slice(2))
 const target = args._.length ? fuzzyMatchTarget(args._)[0] : 'vue'
 const formats = args.formats || args.f
 const sourceMap = args.sourcemap || args.s
+//截取前7位commit 信息 git rev-parse HEAD
 const commit = execa.sync('git', ['rev-parse', 'HEAD']).stdout.slice(0, 7)
 
+//??什么写法
 execa(
   'rollup',
   [
